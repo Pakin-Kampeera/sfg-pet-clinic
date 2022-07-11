@@ -39,7 +39,6 @@ public abstract class AbstractMapService<T extends BaseEntity, ID extends Long> 
 
     private Long getNextId() {
         Long increment = map.isEmpty() ? 1L : Collections.max(map.keySet()) + 1L;
-        log.info(map.keySet());
         log.info("Row increment: {}", increment);
         return increment;
     }
