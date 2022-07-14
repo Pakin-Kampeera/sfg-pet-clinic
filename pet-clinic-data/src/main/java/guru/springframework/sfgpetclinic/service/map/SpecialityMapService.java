@@ -2,11 +2,13 @@ package guru.springframework.sfgpetclinic.service.map;
 
 import guru.springframework.sfgpetclinic.model.Speciality;
 import guru.springframework.sfgpetclinic.service.SpecialityService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
+@Profile({"map", "default"})
 public class SpecialityMapService extends AbstractMapService<Speciality, Long> implements SpecialityService {
     @Override
     public Set<Speciality> findAll() {
@@ -19,13 +21,13 @@ public class SpecialityMapService extends AbstractMapService<Speciality, Long> i
     }
 
     @Override
-    public void delete(Speciality object) {
-        super.delete(object);
+    public void delete(Speciality speciality) {
+        super.delete(speciality);
     }
 
     @Override
-    public Speciality save(Speciality object) {
-        return super.save(object);
+    public Speciality save(Speciality speciality) {
+        return super.save(speciality);
     }
 
     @Override

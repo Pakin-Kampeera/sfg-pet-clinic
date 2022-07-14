@@ -2,11 +2,13 @@ package guru.springframework.sfgpetclinic.service.map;
 
 import guru.springframework.sfgpetclinic.model.Pet;
 import guru.springframework.sfgpetclinic.service.PetService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
+@Profile({"map", "default"})
 public class PetMapService extends AbstractMapService<Pet, Long> implements PetService {
     @Override
     public Set<Pet> findAll() {
@@ -19,13 +21,13 @@ public class PetMapService extends AbstractMapService<Pet, Long> implements PetS
     }
 
     @Override
-    public void delete(Pet object) {
-        super.delete(object);
+    public void delete(Pet pet) {
+        super.delete(pet);
     }
 
     @Override
-    public Pet save(Pet object) {
-        return super.save(object);
+    public Pet save(Pet pet) {
+        return super.save(pet);
     }
 
     @Override

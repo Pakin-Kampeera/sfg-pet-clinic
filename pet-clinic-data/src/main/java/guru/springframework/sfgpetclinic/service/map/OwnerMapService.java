@@ -6,11 +6,13 @@ import guru.springframework.sfgpetclinic.service.OwnerService;
 import guru.springframework.sfgpetclinic.service.PetService;
 import guru.springframework.sfgpetclinic.service.PetTypeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 @Service
+@Profile({"map", "default"})
 @RequiredArgsConstructor
 public class OwnerMapService extends AbstractMapService<Owner, Long> implements OwnerService {
 
@@ -28,15 +30,15 @@ public class OwnerMapService extends AbstractMapService<Owner, Long> implements 
     }
 
     @Override
-    public void delete(Owner object) {
-        super.delete(object);
+    public void delete(Owner owner) {
+        super.delete(owner);
     }
 
     @Override
-    public Owner save(Owner object) {
-        if (object != null) {
-            if (object.getPets() != null) {
-                object.getPets().forEach(pet -> {
+    public Owner save(Owner owner) {
+        if (owner != null) {
+            if (owner.getPets() != null) {
+                owner.getPets().forEach(pet -> {
                     if (pet.getPetType() != null) {
                         if (pet.getPetType().getId() != null) {
                             pet.setPetType(petTypeService.save(pet.getPetType()));
@@ -50,7 +52,7 @@ public class OwnerMapService extends AbstractMapService<Owner, Long> implements 
                     }
                 });
             }
-            return super.save(object);
+            return super.save(owner);
         }
         return null;
     }

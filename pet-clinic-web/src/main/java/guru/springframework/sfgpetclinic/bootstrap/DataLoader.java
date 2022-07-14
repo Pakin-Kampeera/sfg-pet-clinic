@@ -1,14 +1,12 @@
 package guru.springframework.sfgpetclinic.bootstrap;
 
 import guru.springframework.sfgpetclinic.model.*;
-import guru.springframework.sfgpetclinic.service.OwnerService;
-import guru.springframework.sfgpetclinic.service.PetTypeService;
-import guru.springframework.sfgpetclinic.service.SpecialityService;
-import guru.springframework.sfgpetclinic.service.VetService;
+import guru.springframework.sfgpetclinic.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -23,8 +21,10 @@ public class DataLoader implements CommandLineRunner {
     private final VetService vetService;
     private final PetTypeService petTypeService;
     private final SpecialityService specialityService;
+    private final VisitService visitService;
 
     @Override
+    @Transactional
     public void run(String... args) {
         final int count = petTypeService.findAll().size();
         if (count == 0) {
@@ -90,6 +90,13 @@ public class DataLoader implements CommandLineRunner {
 
         owner2.setPets(new HashSet<>(List.of(fionaPet)));
         ownerService.save(owner2);
+
+        Visit catVisit = new Visit();
+        catVisit.setDescription("Sneezy Cat");
+        catVisit.setDate(LocalDate.now());
+        catVisit.setPet(fionaPet);
+
+        visitService.save(catVisit);
 
         log.info("Loaded Owners...");
 
