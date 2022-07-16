@@ -18,9 +18,6 @@ import java.util.Set;
 public class OwnerJpaService implements OwnerService {
 
     private final OwnerRepository ownerRepository;
-    private final PetRepository petRepository;
-    private final PetTypeRepository petTypeRepository;
-
 
     @Override
     public Set<Owner> findAll() {
